@@ -27,26 +27,26 @@ app = Flask(__name__)
 
 # Logging
 logger = logging.getLogger(__name__)
-logger.addHandler(AzureLogHandler(connection_string='InstrumentationKey=cbe42439-edc5-4b5e-bc10-948444c1eab7'))
-logger.addHandler(AzureEventHandler(connection_string='InstrumentationKey=cbe42439-edc5-4b5e-bc10-948444c1eab7'))
+logger.addHandler(AzureLogHandler(connection_string='InstrumentationKey=5c863886-47ee-46d1-b806-70e66155332f'))
+logger.addHandler(AzureEventHandler(connection_string='InstrumentationKey=5c863886-47ee-46d1-b806-70e66155332f'))
 
 # Metrics
 exporter = metrics_exporter.new_metrics_exporter(
     enable_standard_metrics=True,
-    connection_string='InstrumentationKey=cbe42439-edc5-4b5e-bc10-948444c1eab7'
+    connection_string='InstrumentationKey=5c863886-47ee-46d1-b806-70e66155332f'
 )
 
 # Tracing
 tracer = Tracer(
     exporter = AzureExporter(
-        connection_string = 'InstrumentationKey=cbe42439-edc5-4b5e-bc10-948444c1eab7'),
+        connection_string = 'InstrumentationKey=5c863886-47ee-46d1-b806-70e66155332f'),
     sampler = ProbabilitySampler(1.0),
 )
 
 # Requests
 middleware = FlaskMiddleware(
  app,
- exporter=AzureExporter(connection_string="InstrumentationKey=cbe42439-edc5-4b5e-bc10-948444c1eab7"),
+ exporter=AzureExporter(connection_string="InstrumentationKey=5c863886-47ee-46d1-b806-70e66155332f"),
  sampler=ProbabilitySampler(rate=1.0)
 )
 
@@ -146,7 +146,7 @@ def index():
 
 if __name__ == "__main__":
     # TODO: Use the statement below when running locally
-    app.run() 
+    #app.run() 
 
     # TODO: Use the statement below before deployment to VMSS
-    #app.run(host='0.0.0.0', threaded=True, debug=True) # remote
+    app.run(host='0.0.0.0', threaded=True, debug=True) # remote
